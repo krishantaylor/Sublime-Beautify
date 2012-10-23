@@ -5,12 +5,12 @@ import json
 class BeautifyCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         self.save()
-        self.prettify(edit)
+        self.beautify(edit)
 
     def save(self):
         self.view.run_command("save")
 
-    def prettify(self, edit):
+    def beautify(self, edit):
         scriptPath = sublime.packages_path() + "/Sublime-Beautify/scripts/run.js"
         settings = {
             "indent_size": 2,

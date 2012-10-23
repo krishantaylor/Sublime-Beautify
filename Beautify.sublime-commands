@@ -1,6 +1,6 @@
 [
     {
         "caption": "Beautify: Beautify",
-        "command": "Beautify"
+        "command": "beautify"
     }
 ]
