@@ -1,0 +1,19 @@
+{
+    "node": "node",
+    "js": {
+        "indent_size": 4,
+        "indent_char": " ",
+        "preserve_newlines": true,
+        "preserve_max_newlines": false,
+        "jslint_happy": false,
+        "brace_style": "collapse"
+    },
+    "html": {
+        "indent_size": 4,
+        "indent_char": " ",
+        "max_char": 70,
+        "brace_style": "collapse",
+        "unformatted": ["a"]
+    },
+    "css": {}
+}

@@ -26,19 +26,16 @@
 (function () {
     "use strict";
 
-    var i, len, hash, key,
+    // cache the process arguments
+    var argv = process.argv,
 
-        // cache the console log function and the process arguments
-        log = console.log,
-        argv = process.argv,
-
-        // require path and file system utilities to load the jshint.js file
+        // require path and file system utilities to load the beautify files
         path = require("path"),
         fs = require("fs"),
 
         // the source file to be linted and options
         source = argv[2] || "",
-        option = {};
+        options = JSON.parse(argv[3]) || {};
 
     // the style_html and js_beautify functions work when global by dependance
     global.style_html = require(path.join(__dirname, "beautify-html.js")).style_html;
@@ -49,18 +46,7 @@
 
     // continue only if the source file is specified
     if (source !== "") {
-
-        // extra arguments with custom options could be passed, so check them now
-        // and add them to the options object
-        hash = JSON.parse(argv[3]) || {};
-        for (key in hash) {
-            if (hash.hasOwnProperty(key)) {
-                // options are stored in key value pairs, such as option.es5 = true
-                option[key] = hash[key];
-            }
-        }
-
-        // read the source file and, when complete, lint the code
+        // read the source file and, when complete, beautify the code
         fs.readFile(source, "utf8", function (err, data) {
             if (err) {
                 return;
@@ -68,11 +54,11 @@
 
             // format the code
             if (source.match(".html?" + "$")) {
-                log(style_html(data, option));
+                console.log(style_html(data, options.html));
             } else if (source.match(".css" + "$") == ".css") {
-                log(cssbeautify(data, option));
+                console.log(cssbeautify(data, options.css));
             } else if (source.match(".js" + "$") == ".js") {
-                log(js_beautify(data, option));
+                console.log(js_beautify(data, options.js));
             }
         });
     }
