@@ -1,7 +1,7 @@
 import commands, subprocess
 import sublime, sublime_plugin
 
-class HtmlprettifyCommand(sublime_plugin.TextCommand):
+class BeautifyCommand(sublime_plugin.TextCommand):
   def run(self, edit):
     self.save()
     self.prettify(edit)
@@ -10,7 +10,7 @@ class HtmlprettifyCommand(sublime_plugin.TextCommand):
     self.view.run_command("save")
 
   def prettify(self, edit):
-    scriptPath = sublime.packages_path() + "/Sublime-HTMLPrettify/scripts/run.js"
+    scriptPath = sublime.packages_path() + "/Sublime-Beautify/scripts/run.js"
     setings = ' '.join([
       "indent_size:\ 2",
       "indent_char:\ ' '",
