@@ -1,5 +1,6 @@
 import commands, subprocess
 import sublime, sublime_plugin
+import json
 
 class BeautifyCommand(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -11,13 +12,13 @@ class BeautifyCommand(sublime_plugin.TextCommand):
 
     def prettify(self, edit):
         scriptPath = sublime.packages_path() + "/Sublime-Beautify/scripts/run.js"
-        settings = ' '.join([
-            "indent_size:\ 2",
-            "indent_char:\ ' '",
-            "max_char:\ 80",
-            "brace_style:\ collapse"
-            ])
-        cmd = ["node", scriptPath, self.view.file_name(), settings]
+        settings = {
+            "indent_size": 2,
+            "indent_char": " ",
+            "max_char": 80,
+            "brace_style": "collapse"
+        }
+        cmd = ["node", scriptPath, self.view.file_name(), json.dumps(settings).replace('"', '\\"')]
 
         if sublime.platform() == "windows":
             p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)

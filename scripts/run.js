@@ -26,7 +26,7 @@
 (function () {
     "use strict";
 
-    var i, len, hash, key, value, raw,
+    var i, len, hash, key,
 
         // cache the console log function and the process arguments
         log = console.log,
@@ -52,13 +52,12 @@
 
         // extra arguments with custom options could be passed, so check them now
         // and add them to the options object
-        for (i = 3, len = argv.length; i < len; i++) {
-            hash = argv[i].split(": ");
-            key = hash[0];
-            value = hash[1];
-
-            // options are stored in key value pairs, such as option.es5 = true
-            option[key] = value;
+        hash = JSON.parse(argv[3]) || {};
+        for (key in hash) {
+            if (hash.hasOwnProperty(key)) {
+                // options are stored in key value pairs, such as option.es5 = true
+                option[key] = hash[key];
+            }
         }
 
         // read the source file and, when complete, lint the code
